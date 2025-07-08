@@ -1,0 +1,8 @@
+{% extends "admin_dashboard.html" %}
+{% block content %}
+<h2>{% if form.instance.pk %}Editar Materia{% else %}Nueva Materia{% endif %}</h2>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Guardar</button>
+</form>
+{% endblock %}

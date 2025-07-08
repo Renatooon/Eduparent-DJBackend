@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Padre de Familia</title>
+</head>
+<body>
+    <h1>Bienvenido Padre de Familia {{ request.user.nombre }}</h1>
+    <a href="{% url 'logout' %}">Cerrar sesión</a>
+</body>
+</html>

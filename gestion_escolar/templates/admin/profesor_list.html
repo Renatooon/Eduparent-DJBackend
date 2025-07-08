@@ -1,0 +1,27 @@
+{% extends 'admin_dashboard.html' %}
+{% block content %}
+<h2>Lista de Profesores</h2>
+
+<a href="{% url 'profesor_create' %}" class="btn btn-primary mb-3">Nuevo Profesor</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Email</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for profesor in profesores %}
+        <tr>
+            <td>{{ profesor.usuario.nombre }} {{ profesor.usuario.apellido }}</td>
+            <td>{{ profesor.usuario.email }}</td>
+            <td>
+                <a href="{% url 'profesor_update' profesor.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'profesor_delete' profesor.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

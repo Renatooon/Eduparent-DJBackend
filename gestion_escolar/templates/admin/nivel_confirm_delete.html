@@ -1,0 +1,11 @@
+{% extends 'admin_dashboard.html' %}
+
+{% block content %}
+<h3 class="mb-3">Eliminar Nivel</h3>
+<p>¿Estás seguro de que deseas eliminar el nivel "{{ nivel.nombre }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a href="{% url 'nivel_list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

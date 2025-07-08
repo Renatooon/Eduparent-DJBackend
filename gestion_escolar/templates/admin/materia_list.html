@@ -1,0 +1,20 @@
+{% extends "admin_dashboard.html" %}
+{% block content %}
+<h2>Materias</h2>
+<a href="{% url 'materia_create' %}">Nueva Materia</a>
+<table>
+  <tr><th>ID</th><th>Nombre</th><th>Profesor</th><th>Grado</th><th>Acciones</th></tr>
+  {% for m in materias %}
+  <tr>
+    <td>{{ m.id }}</td>
+    <td>{{ m.nombre }}</td>
+    <td>{{ m.profesor }}</td>
+    <td>{{ m.grado }}</td>
+    <td>
+      <a href="{% url 'materia_update' m.id %}">Editar</a> |
+      <a href="{% url 'materia_delete' m.id %}">Eliminar</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

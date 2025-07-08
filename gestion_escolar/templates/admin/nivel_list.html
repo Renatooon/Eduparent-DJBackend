@@ -1,0 +1,25 @@
+{% extends 'admin_dashboard.html' %}
+
+{% block content %}
+<h3 class="mb-3">Lista de Niveles</h3>
+<a href="{% url 'nivel_create' %}" class="btn btn-primary mb-3">Nuevo Nivel</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th><th>Nombre</th><th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for nivel in niveles %}
+        <tr>
+            <td>{{ nivel.id }}</td>
+            <td>{{ nivel.nombre }}</td>
+            <td>
+                <a href="{% url 'nivel_update' nivel.id %}" class="btn btn-sm btn-warning">Editar</a>
+                <a href="{% url 'nivel_delete' nivel.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administración | Sistema de Gestión Escolar</title>
+
+    <!--  Bootstrap 5  -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!--  Íconos  -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+        /* --- Layout --- */
+        body      { overflow-x:hidden; }
+        #sidebar  { width:260px; min-height:100vh; background:#0d6efd; }
+        #sidebar a,#sidebar span { color:#fff; font-size:0.9rem; }
+        #sidebar .nav-link.active{ background:rgba(255,255,255,0.15); }
+        #content  { margin-left:260px; padding:1.5rem; }
+
+        /* --- Cards de métricas --- */
+        .info-card{
+            color:#fff; border-radius:.4rem; overflow:hidden;
+            display:flex; justify-content:space-between;
+            align-items:center; padding:1.25rem;
+        }
+        .info-card .icon{ font-size:2.3rem; opacity:.3; }
+        .info-card .count{ font-size:1.9rem; font-weight:700; }
+
+        /* Colores por tarjeta */
+        .bg-blue   { background:#0d6efd; }
+        .bg-teal   { background:#198754; }
+        .bg-green  { background:#20c997; }
+        .bg-yellow { background:#ffc107; }
+        .bg-red    { background:#dc3545; }
+        .bg-dark   { background:#212529; }
+    </style>
+</head>
+<body>
+    
+
+<nav id="sidebar" class="d-flex flex-column p-3 position-fixed">
+    <h4 class="text-light mb-4">
+        <i class="fa-solid fa-graduation-cap me-2"></i>
+        GESTIÓN ESCOLAR
+    </h4>
+
+    <hr class="border-light opacity-50">
+    <ul class="nav nav-pills flex-column mb-auto">
+    <li><a class="nav-link" href="{% url 'nivel_list' %}"><i class="fa-solid fa-stairs me-2"></i>Niveles</a></li>
+    <li><a class="nav-link" href="{% url 'grado_list' %}"><i class="fa-solid fa-layer-group me-2"></i>Grados</a></li>
+    <li><a class="nav-link" href="{% url 'materia_list' %}"><i class="fa-solid fa-book-open me-2"></i>Materias</a></li>
+    <li><a class="nav-link" href="{% url 'usuario_list' %}"><i class="fa-solid fa-users me-2"></i>Usuarios</a></li>
+    <li><a class="nav-link" href="{% url 'profesor_list' %}"><i class="fa-solid fa-chalkboard-teacher me-2"></i>Docentes</a></li>
+    <li><a class="nav-link" href="{% url 'alumno_list' %}"><i class="fa-solid fa-user-graduate me-2"></i>Estudiantes</a></li>
+
+    </ul>
+    <hr class="border-light opacity-50 mt-auto">
+    <a href="{% url 'logout' %}" class="btn btn-danger w-100">
+        <i class="fa-solid fa-right-from-bracket me-2"></i> Cerrar sesión
+    </a>
+</nav>
+
+
+<main id="content">
+    <!--  Topbar  -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">SISTEMA DE GESTIÓN ESCOLAR</h2>
+        <div class="d-flex align-items-center">
+            <i class="fa-solid fa-bell text-warning fs-4 me-3"></i>
+            <i class="fa-solid fa-expand fs-5 me-3"></i>
+            <span class="fw-semibold">{{ request.user.email|default:"admin@admin.com" }}</span>
+        </div>
+    </div>
+
+    <!--  Datos usuario  -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light fw-semibold">Datos del usuario</div>
+        <table class="table align-middle mb-0">
+            <tbody>
+                <tr>
+                    <th style="width:180px;">Nombres y apellidos:</th>
+                    <td>{{ request.user.nombre }} {{ request.user.apellido }}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--  Tarjetas métricas con enlaces -->
+<div class="row gy-3 gx-3">
+    <div class="col-sm-6 col-md-4 col-lg-3">
+        <a href="{% url 'usuario_list' %}" class="text-decoration-none">
+            <div class="info-card bg-teal">
+                <div>
+                    <div class="count">{{ total_usuarios|default:"0" }}</div>
+                    <span>Usuarios registrados</span>
+                </div>
+                <i class="fa-solid fa-users icon"></i>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-sm-6 col-md-4 col-lg-3">
+        <a href="{% url 'nivel_list' %}" class="text-decoration-none">
+            <div class="info-card bg-green">
+                <div>
+                    <div class="count">{{ total_niveles|default:"0" }}</div>
+                    <span>Niveles registrados</span>
+                </div>
+                <i class="fa-solid fa-stairs icon"></i>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-sm-6 col-md-4 col-lg-3">
+        <a href="{% url 'grado_list' %}" class="text-decoration-none">
+            <div class="info-card bg-yellow text-dark">
+                <div>
+                    <div class="count">{{ total_grados|default:"0" }}</div>
+                    <span>Grados registrados</span>
+                </div>
+                <i class="fa-solid fa-layer-group icon"></i>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-sm-6 col-md-4 col-lg-3">
+        <a href="{% url 'materia_list' %}" class="text-decoration-none">
+            <div class="info-card bg-red">
+                <div>
+                    <div class="count">{{ total_materias|default:"0" }}</div>
+                    <span>Materias registradas</span>
+                </div>
+                <i class="fa-solid fa-book icon"></i>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-sm-6 col-md-4 col-lg-3">
+        <a href="{% url 'profesor_list' %}" class="text-decoration-none">
+            <div class="info-card bg-dark">
+                <div>
+                    <div class="count">{{ total_docentes|default:"0" }}</div>
+                    <span>Docentes registrados</span>
+                </div>
+                <i class="fa-solid fa-chalkboard-user icon"></i>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-sm-6 col-md-4 col-lg-3">
+        <a href="{% url 'alumno_list' %}" class="text-decoration-none">
+            <div class="info-card bg-blue">
+                <div>
+                    <div class="count">{{ total_estudiantes|default:"0" }}</div>
+                    <span>Estudiantes registrados</span>
+                </div>
+                <i class="fa-solid fa-user-graduate icon"></i>
+            </div>
+        </a>
+    </div>
+</div>
+
+
+    <!--  Más secciones debajo si lo deseas …  -->
+</main>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

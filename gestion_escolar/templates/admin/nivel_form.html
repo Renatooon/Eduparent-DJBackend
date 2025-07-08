@@ -1,0 +1,11 @@
+{% extends 'admin_dashboard.html' %}
+
+{% block content %}
+<h3 class="mb-3">Formulario de Nivel</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a href="{% url 'nivel_list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}
